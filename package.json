@@ -1,0 +1,16 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GitHub Actions demo repository",
+  "scripts": {
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
+    "myrelease": "node scripts/myrelease.js"
+  },
+  "devDependencies": {
+    "markdownlint-cli2": "^0.18.1"
+  },
+  "dependencies": {
+    "semver": "^7.8.6"
+  }
+}

@@ -1,0 +1,58 @@
+name: PR Lint Report
+
+on:
+  workflow_run:
+    workflows: ["Markdown Lint"]
+    types: [completed]
+
+permissions:
+  contents: read        # スクリプトのチェックアウト
+  actions: write        # artifact の取得・削除
+  pull-requests: write  # PR へのコメント
+  issues: write         # ラベルの作成・付け外し
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  REPO: ${{ github.repository }}
+  RUN_ID: ${{ github.event.workflow_run.id }}
+  HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+  LINT_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+  ARTIFACT_NAME: markdownlint-report
+  MARKER: "<!-- md-lint-report -->"
+  LABEL: "docs: lint-failed"
+
+jobs:
+  report:
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion != 'cancelled'
+    runs-on: ubuntu-latest
+    steps:
+      # スクリプトはデフォルトブランチのものを使う（PR 側のコードはチェックアウトしない）
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+          persist-credentials: false
+
+      - name: Download artifact from triggering run
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          run-id: ${{ env.RUN_ID }}
+          github-token: ${{ github.token }}
+          # path: ${{ runner.temp }}/artifact
+
+      - name: Comment lint result and update label
+        env:
+          EVENT_PR: ${{ github.event.workflow_run.pull_requests[0].number }}
+          REPORT_FILE: ${{ runner.temp }}/artifact/markdownlint-report.txt
+          SERVER_URL: ${{ github.server_url }}
+        run: bash .github/scripts/pr-lint-report.sh
+
+      - name: Delete artifact
+        if: always()
+        run: |
+          gh api "repos/${REPO}/actions/runs/${RUN_ID}/artifacts" \
+            --jq ".artifacts[] | select(.name == \"${ARTIFACT_NAME}\") | .id" |
+          while read -r id; do
+            echo "Deleting artifact ${id}"
+            gh api -X DELETE "repos/${REPO}/actions/artifacts/${id}"
+          done

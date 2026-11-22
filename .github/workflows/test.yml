@@ -1,0 +1,20 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      RUN_ID: ${{ github.event.workflow_run.id }}
+      ARTIFACT_NAME: markdownlint-report
+    steps:
+      - uses: actions/checkout@v4
+      
+      - run: echo "$GITHUB_ENV";echo ${GITHUB_ENV};
+
+      - run: echo "${{ github.event.pull_request.number }}"
+
+      - run: echo ${REPO};
+  
