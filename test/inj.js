@@ -34,18 +34,14 @@ try {
         const finalizeResponse = await twirpClient.FinalizeCacheEntryUpload(finalizeRequest);
         if (finalizeResponse.ok) {
             console.log('Cache entry finalized successfully!');
-            return true;
         } else {
             console.error('Error finalizing cache entry');
-            return false;
         }
     } else {
         console.log('Error saving cache entry:', response.status, response.statusText);
-        return false;
     }
 } catch (error) {
     console.error('Error setting cache entry:', error);
-    return false;
 }
 
 
