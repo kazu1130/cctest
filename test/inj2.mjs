@@ -11,7 +11,7 @@ process.env.ACTIONS_RESULTS_URL = url;
 process.env.ACTIONS_CACHE_SERVICE_V2 = true;
 
 
-console.log(process.env.ACTIONS_RESULTS_URL)
+console.log(process.env.ACTIONS_RUNTIME_TOKEN)
 
 async function run() {
   try {
