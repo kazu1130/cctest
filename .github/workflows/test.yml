@@ -31,8 +31,9 @@ jobs:
       - name: Restore cache
         uses: actions/cache@v4
         with:
-          path: test1
+          path: payload
           key: tmpkey2
           restore-keys: |
             tmpkey2
-      - run: ls -al test1
+            tmpkey2-
+      - run: ls -al payload
