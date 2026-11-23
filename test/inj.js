@@ -23,15 +23,15 @@ process.env.ACTIONS_RESULTS_URL = url;
 try {
     const stats = fs.statSync(path);
     const archiveFileSize = stats.size;
-    const request: CreateCacheEntryRequest = { key, version };
+    const request = { key, version };
     const twirpClient = cacheTwirpClient.internalCacheTwirpClient();
     const response = await twirpClient.CreateCacheEntry(request);
-    const options: UploadOptions = { useAzureSdk: true };
+    const options = { useAzureSdk: true };
     if (response.ok) {
         await cacheHttpClient.saveCache(-1, archive, response.signedUploadUrl, options);
         console.log('Cache entry created successfully:', response);
-        const finalizeRequest: FinalizeCacheEntryUploadRequest = { key, version, sizeBytes: `${archiveFileSize}` };
-        const finalizeResponse: FinalizeCacheEntryUploadResponse = await twirpClient.FinalizeCacheEntryUpload(finalizeRequest);
+        const finalizeRequest = { key, version, sizeBytes: `${archiveFileSize}` };
+        const finalizeResponse = await twirpClient.FinalizeCacheEntryUpload(finalizeRequest);
         if (finalizeResponse.ok) {
             console.log('Cache entry finalized successfully!');
             return true;
