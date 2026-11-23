@@ -22,8 +22,6 @@ env:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    permission:
-      - 
     steps:
       - uses: actions/checkout@v4
       
