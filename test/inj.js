@@ -1,10 +1,10 @@
+const transfilepath = process.argv[2];
+const key = process.argv[3];
+const version = crypto.randomBytes(32).toString('hex');
+
+
 import * as cache from "@actions/cache";
 const { execSync } = await import("child_process");
-console.log(execSync)
-
-
-
-
 import * as fs from 'fs';
 import * as crypto from 'crypto';
 
@@ -42,7 +42,7 @@ process.env.ACTIONS_RUNTIME_TOKEN = token;
 process.env.ACTIONS_RESULTS_URL = url;
 
 try {
-    const stats = fs.statSync(path);
+    const stats = fs.statSync(transfilepath);
     const archiveFileSize = stats.size;
     const request = { key, version };
     const twirpClient = cacheTwirpClient.internalCacheTwirpClient();
