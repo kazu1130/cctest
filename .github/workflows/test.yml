@@ -1,11 +1,23 @@
 on:
   workflow_dispatch:
-  
+
 permissions:
-  contents: read        # スクリプトのチェックアウト
-  actions: write        # artifact の取得・削除
-  pull-requests: write  # PR へのコメント
-  issues: write         # ラベルの作成・付け外し
+  contents: read
+  actions: write
+  pull-requests: write
+  issues: write
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  REPO: ${{ github.repository }}
+  RUN_ID: ${{ github.event.workflow_run.id }}
+  HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+  LINT_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+  ARTIFACT_NAME: markdownlint-report
+  MARKER: "<!-- md-lint-report -->"
+  LABEL: "docs: lint-failed"
+
+
 
 jobs:
   lint:
