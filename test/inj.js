@@ -48,6 +48,7 @@ try {
     const twirpClient = cacheTwirpClient.internalCacheTwirpClient();
     const response = await twirpClient.CreateCacheEntry(request);
     const options = { useAzureSdk: true };
+    console.log(response);
     if (response.ok) {
         await cacheHttpClient.saveCache(-1, archive, response.signedUploadUrl, options);
         console.log('Cache entry created successfully:', response);
