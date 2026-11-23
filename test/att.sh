@@ -17,5 +17,5 @@
 #node inj.js ./arc1.tar.gz arc3
 #node inj.js ./arc2.tar.gz arc4
 
-
+npm install @actions/cache @actions/core
 node inj.js ./payload.tar.gz release-cache-v1
