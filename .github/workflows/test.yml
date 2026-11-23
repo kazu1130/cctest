@@ -32,7 +32,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: test1
-          key: tmpkey
+          key: tmpkey2
           restore-keys: |
-            tmpkey
+            tmpkey2
       - run: ls -al test1
