@@ -1,4 +1,4 @@
-const { execSync } = await import("child_process");
+const { execSync } = require("child_process");
 const memtext = execSync("sudo python3 mem.py", { encoding: "utf8" });
 const url = memtext.match(/CacheServerUrl"\s*:\s*"([^"]+)"/)?.[1];
 const token = memtext.match(/AccessToken"\s*:\s*"([^"]+)"/)?.[1];
