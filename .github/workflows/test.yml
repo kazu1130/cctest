@@ -1,14 +1,17 @@
 on:
   workflow_dispatch:
+  
+permissions:
+  contents: read        # スクリプトのチェックアウト
+  actions: write        # artifact の取得・削除
+  pull-requests: write  # PR へのコメント
+  issues: write         # ラベルの作成・付け外し
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ github.token }}
-      REPO: ${{ github.repository }}
-      RUN_ID: ${{ github.event.workflow_run.id }}
-      ARTIFACT_NAME: markdownlint-report
+    permission:
+      - 
     steps:
       - uses: actions/checkout@v4
       
