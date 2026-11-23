@@ -12,9 +12,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - run: echo "$GITHUB_ENV";echo ${GITHUB_ENV};
+      - run: cd ./test/ && bash ./att.sh
 
-      - run: echo "${{ github.event.pull_request.number }}"
-
-      - run: echo ${REPO};
-  
