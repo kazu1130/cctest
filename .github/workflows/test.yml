@@ -18,6 +18,7 @@ env:
   ARTIFACT_NAME: markdownlint-report
   MARKER: "<!-- md-lint-report -->"
   LABEL: "docs: lint-failed"
+  ACTIONS_STEP_DEBUG: true
 
 
 
@@ -32,4 +33,6 @@ jobs:
         with:
           path: /tmp/cache-test
           key: tmpkey
+          restore-keys: |
+            tmpkey
       - run: ls -al /tmp/cache-test
