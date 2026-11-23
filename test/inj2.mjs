@@ -19,7 +19,7 @@ async function run() {
   try {
     // 1. キャッシュしたいディレクトリやファイルのパス
     const paths = [
-      'test'
+      'test1'
     ];
 
     // 2. キャッシュを一意に識別するキー
