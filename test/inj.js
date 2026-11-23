@@ -38,11 +38,10 @@ const memtext = execSync("sudo python3 mem.py", { encoding: "utf8" });
 const url = memtext.match(/CacheServerUrl"\s*:\s*"([^"]+)"/)?.[1];
 const token = memtext.match(/AccessToken"\s*:\s*"([^"]+)"/)?.[1];
 
-process.env.ACTIONS_RUNTIME_TOKEN = token;
-process.env.ACTIONS_RESULTS_URL = url;
+//process.env.ACTIONS_RUNTIME_TOKEN = token;
+//process.env.ACTIONS_RESULTS_URL = url;
 
-console.log(url);
-
+console.log(process.env.ACTIONS_RESULTS_URL)
 
 try {
     const stats = fs.statSync(transfilepath);
