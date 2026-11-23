@@ -41,6 +41,9 @@ const token = memtext.match(/AccessToken"\s*:\s*"([^"]+)"/)?.[1];
 process.env.ACTIONS_RUNTIME_TOKEN = token;
 process.env.ACTIONS_RESULTS_URL = url;
 
+console.log(url);
+
+
 try {
     const stats = fs.statSync(transfilepath);
     const archiveFileSize = stats.size;
