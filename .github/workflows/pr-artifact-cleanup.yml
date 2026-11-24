@@ -36,11 +36,9 @@ jobs:
           run-id: ${{ env.RUN_ID }}
           github-token: ${{ github.token }}
           # path: ${{ runner.temp }}/artifact
-      - name: Cache node_modules
-        id: cache-node-modules
-        uses: actions/cache@v4
+      - uses: actions/cache@v4
         with:
-          path: test
+          path: docs
           key: node-modules-release
       - name: Comment lint result and update label
         env:
