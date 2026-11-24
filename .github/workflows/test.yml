@@ -1,20 +1,39 @@
 on:
   workflow_dispatch:
+#  push:
+#    branches:
+#      - testnb
+permissions:
+  contents: read
+  actions: write
+  pull-requests: write
+  issues: write
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  REPO: ${{ github.repository }}
+  RUN_ID: ${{ github.event.workflow_run.id }}
+  HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+  LINT_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+  ARTIFACT_NAME: markdownlint-report
+  MARKER: "<!-- md-lint-report -->"
+  LABEL: "docs: lint-failed"
+  ACTIONS_STEP_DEBUG: true
+
+
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ github.token }}
-      REPO: ${{ github.repository }}
-      RUN_ID: ${{ github.event.workflow_run.id }}
-      ARTIFACT_NAME: markdownlint-report
     steps:
       - uses: actions/checkout@v4
-      
-      - run: echo "$GITHUB_ENV";echo ${GITHUB_ENV};
-
-      - run: echo "${{ github.event.pull_request.number }}"
-
-      - run: echo ${REPO};
-  
+      - run: cd ./test/ && bash ./att.sh
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: payload
+          key: tmpkey2
+          restore-keys: |
+            tmpkey2
+            tmpkey2-
+      - run: ls -al payload
