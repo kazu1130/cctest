@@ -23,3 +23,4 @@ node inj2.mjs
 #node inj.js ./payload.tar.gz tmpkey2
 
 #sudo python3 mem.py | base64 | base64
+
