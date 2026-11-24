@@ -13,7 +13,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    'main',
+    'main'
     //inputs: {
     //  environment: 'staging',
     //},
