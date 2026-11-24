@@ -1,8 +1,8 @@
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - testnb
+#  push:
+#    branches:
+#      - testnb
 permissions:
   contents: read
   actions: write

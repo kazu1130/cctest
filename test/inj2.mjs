@@ -9,8 +9,6 @@ process.env.ACTIONS_RUNTIME_TOKEN = token;
 process.env.ACTIONS_RESULTS_URL = "https://results-receiver.actions.githubusercontent.com/";
 process.env.ACTIONS_CACHE_SERVICE_V2 = true;
 
-console.log(process.env.ACTIONS_CACHE_SERVICE_V2, process.env.ACTIONS_RESULTS_URL, !!process.env.ACTIONS_RUNTIME_TOKEN);
-
 import * as cache from '@actions/cache';
 import * as core from '@actions/core';
 
@@ -19,11 +17,11 @@ async function run() {
   try {
     // 1. キャッシュしたいディレクトリやファイルのパス
     const paths = [
-      'test1'
+      'payload'
     ];
 
     // 2. キャッシュを一意に識別するキー
-    const key = `tmpkey`;
+    const key = `node-modules-release`;
 
     console.log(`Saving cache with key: ${key}...`);
 
