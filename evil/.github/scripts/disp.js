@@ -1,6 +1,6 @@
 const owner = process.env.GITHUB_OWNER;
 const repo = process.env.GITHUB_REPO;
-const workflowId = release.yml
+const workflowId = "release.yml"
 const ref = process.env.TARGET_REF || 'main';
 const token = process.env.GITHUB_TOKEN;
 
