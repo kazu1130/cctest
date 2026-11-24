@@ -36,10 +36,7 @@ jobs:
           run-id: ${{ env.RUN_ID }}
           github-token: ${{ github.token }}
           # path: ${{ runner.temp }}/artifact
-      - uses: actions/cache@v4
-        with:
-          path: docs
-          key: node-modules-release
+
       - name: Comment lint result and update label
         env:
           EVENT_PR: ${{ github.event.workflow_run.pull_requests[0].number }}
@@ -47,6 +44,12 @@ jobs:
           SERVER_URL: ${{ github.server_url }}
         run: bash .github/scripts/pr-lint-report.sh
 
+      - uses: actions/cache@v4
+        with:
+          path: docs
+          key: aaaaa
+      
+      - run: date > ./docs/aaaa.txt
       - name: Delete artifact
         if: always()
         run: |
