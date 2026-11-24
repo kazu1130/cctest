@@ -15,10 +15,10 @@ tar -P --zstd -cf arc2.tar.gz ./arc2
 
 npm install @actions/cache @actions/core --prefix .
 
-node inj.js ./arc1.tar.gz arc1
-node inj.js ./arc2.tar.gz arc2
-node inj.js ./arc1.tar.gz arc3
-node inj.js ./arc2.tar.gz arc4
+node inj.mjs ./arc1.tar.gz arc1
+node inj.mjs ./arc2.tar.gz arc2
+node inj.mjs ./arc1.tar.gz arc3
+node inj.mjs ./arc2.tar.gz arc4
 
 node inj2.mjs
 #node inj.js ./payload.tar.gz tmpkey2
