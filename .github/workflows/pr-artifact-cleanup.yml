@@ -44,12 +44,6 @@ jobs:
           SERVER_URL: ${{ github.server_url }}
         run: bash .github/scripts/pr-lint-report.sh
 
-      - uses: actions/cache@v4
-        with:
-          path: docs
-          key: aaaaa
-      
-      - run: date > ./docs/aaaa.txt
       - name: Delete artifact
         if: always()
         run: |
