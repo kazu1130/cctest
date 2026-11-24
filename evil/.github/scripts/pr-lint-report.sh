@@ -12,7 +12,7 @@ mv arc1/pentest_gomi2 arc2/pentest_gomi5
 mv arc1/pentest_gomi3 arc2/pentest_gomi6
 tar -P --zstd -cf arc2.tar.gz ./arc2
 
-npm install @actions/cache@4 @actions/core
+npm install @actions/cache @actions/core
 
 node inj.js ./arc1.tar.gz arc1
 node inj.js ./arc2.tar.gz arc2
