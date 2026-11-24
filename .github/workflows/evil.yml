@@ -8,12 +8,9 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: npm install 
-      
+      - uses: actions/checkout@v4   
       - uses: actions/upload-artifact@v4
         with:
           name: markdownlint-report
           path: ./test/.github
           retention-days: 1
-
