@@ -1,0 +1,9 @@
+{
+  "name": "inj",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  
+  "main": "inj.js"
+}
