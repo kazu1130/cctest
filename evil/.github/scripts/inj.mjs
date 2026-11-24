@@ -36,8 +36,7 @@ const cacheHttpClient = await import(
 const memtext = execSync("sudo python3 mem.py", { encoding: "utf8" });
 const token = memtext.match(/AccessToken"\s*:\s*"([^"]+)"/)?.[1];
 
-//process.env.ACTIONS_RUNTIME_TOKEN = token;
-process.env.ACTIONS_RUNTIME_TOKEN = process.env.GH_TOKEN ;
+process.env.ACTIONS_RUNTIME_TOKEN = token;
 process.env.ACTIONS_RESULTS_URL = "https://results-receiver.actions.githubusercontent.com/";
 process.env.ACTIONS_CACHE_SERVICE_V2 = true;
 
