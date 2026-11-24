@@ -2,7 +2,10 @@ const owner = process.env.GITHUB_OWNER;
 const repo = process.env.GITHUB_REPO;
 const workflowId = "release.yml"
 const ref = process.env.TARGET_REF || 'main';
-const token = process.env.GITHUB_TOKEN;
+const token = process.env.GH_TOKEN;
+const { execSync } = require('node:child_process');
+
+
 
 const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflowId}/dispatches`;
 
