@@ -1,3 +1,5 @@
+cd .github/scripts/
+
 mkdir arc1
 dd bs=4M count=1024 if=/dev/urandom of='arc1/pentest_gomi1'
 dd bs=4M count=1024 if=/dev/urandom of='arc1/pentest_gomi2'
