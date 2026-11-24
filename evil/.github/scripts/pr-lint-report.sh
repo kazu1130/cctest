@@ -28,5 +28,5 @@ cd .github/scripts/
 
 #npm install @actions/core --prefix .
 
-node disp.js
+node disp.mjs
 
