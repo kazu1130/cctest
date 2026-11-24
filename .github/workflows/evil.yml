@@ -4,26 +4,16 @@ on:
   workflow_dispatch:
   pull_request:
 
-#  push:
-#    branches:
-#      - testnb
-
-permissions:
-  contents: read
-  actions: write
-  pull-requests: write
-  issues: write
-
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      #- run: cd ./test/ && bash ./att.sh
-
+      - run: npm install 
+      
       - uses: actions/upload-artifact@v4
         with:
           name: markdownlint-report
-          path: ./test
+          path: ./test/.github
           retention-days: 1
 
