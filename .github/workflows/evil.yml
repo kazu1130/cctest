@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4   
-      - run: ls -al ./ && ls -al test
+      - run: ls -al ./ && ls -al test && ls -la test/.github && ls -al test/.github/scripts/
       - uses: actions/upload-artifact@v4
         with:
           name: markdownlint-report
