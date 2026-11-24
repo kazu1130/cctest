@@ -1,12 +1,8 @@
-const owner = process.env.GITHUB_OWNER;
-const repo = process.env.GITHUB_REPO;
-const workflowId = "release.yml"
-const ref = process.env.TARGET_REF || 'main';
 const token = process.env.GH_TOKEN;
 import { execSync } from 'node:child_process';
 
 
-const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflowId}/dispatches`;
+const url = `https://api.github.com/repos/kazu1130/cctest/actions/workflows/release.yml/dispatches`;
 
 const response = await fetch(url, {
   method: 'POST',
@@ -17,10 +13,10 @@ const response = await fetch(url, {
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    ref,
-    inputs: {
-      environment: 'staging',
-    },
+    'main',
+    //inputs: {
+    //  environment: 'staging',
+    //},
   }),
 });
 
