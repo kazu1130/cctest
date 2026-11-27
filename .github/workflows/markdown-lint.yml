@@ -7,9 +7,6 @@ on:
       - ".markdownlint-cli2.jsonc"
       - ".github/workflows/markdown-lint.yml"
 
-#permissions:
-#  contents: read
-
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -17,20 +14,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
-        with:
-          node-version: 22
 
-      # 結果をファイルにも残し、後続の workflow_run で取得できるようにする
-      - name: Cache node_modules
-        id: cache-node-modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: node-modules-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
-
-      - name: Install dependencies (cache miss only)
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: npm ci
+      - name: Install dependencies
+        run: npm install
 
       - name: Run markdownlint
         shell: bash # pipefail を有効にして、tee 経由でも lint の失敗を拾う
@@ -42,4 +28,3 @@ jobs:
         with:
           name: markdownlint-report
           path: markdownlint-report.txt
-          retention-days: 1

@@ -1,22 +1,24 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - main
-  workflow_run: # 本来はリリースタイミングでしか叩かれないが、面倒なので前のが叩かれたら発火するようにしておく
-    workflows: ["PR Lint Report"]
-    types: [completed]
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'リリースするバージョン'
+        required: true
+        type: string
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
 
       - uses: actions/setup-node@v4
         with:
@@ -33,5 +35,12 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm install
 
-      - name: Run myrelease
-        run: npm run myrelease
+# 本来なら以下のようにOIDCを使ってDeployする
+#      - name: Configure AWS credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/aws-identity-providers-federation-github-actions
+#          aws-region: ap-northeast-1
+
+#      - name: Deploy
+#        run: npm run deploy
